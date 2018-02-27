@@ -16,21 +16,57 @@ var _ = { };
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
+    if (n === undefined) {
+      return array[0];
+    };
+    return array.slice(0, n);
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+    if (undefined === n) {
+      return array[array.length - 1];
+    } else if (n === 0) {
+      return []
+    }
+
+    return array.slice(-n)
   };
 
   // Call iterator(value, key, collection) for each element of collection.
   // Accepts both arrays and objects.
   _.each = function(collection, iterator) {
+
+    if (Array.isArray(collection)) {
+      for (var i = 0; i < collection.length; i++) {
+        iterator(collection[i], i, collection);
+     }
+    } else {
+        for (var i in collection) {
+          iterator(collection[i], i, collection);
+        }
+    }
+
+
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
-  _.indexOf = function(array, target){
+  _.indexOf = function(array, target) {
+    // _.each(array, function (element, index, array) {
+    //   if (element === target) {
+    //     return index;
+    //   }
+    // });
+
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] === target) {
+        return i;
+      }
+    }
+
+    return -1;
   };
 
   // Return all elements of an array that pass a truth test ('iterator' function argument)
